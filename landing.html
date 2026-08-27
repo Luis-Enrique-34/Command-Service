@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InterClick | La plataforma de servicios N° 1</title>
+    <link rel="stylesheet" href="landstyle.css">
+    <!-- Fuentes modernas para alta legibilidad -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Navegación -->
+    <header id="header">
+        <div class="container header-container">
+            <a href="#" class="logo">INTER<span>CLICK</span></a>
+            <nav class="nav-links">
+                <a href="#como-funciona">¿Cómo funciona?</a>
+                <a href="#beneficios">Beneficios</a>
+                <a href="#comunidad">Comunidad</a>
+            </nav>
+            <div class="auth-buttons">
+                <a href="#" class="btn-login">Iniciar sesión</a>
+                <a href="#" class="btn-primary">Empezar gratis</a>
+            </div>
+            <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+        </div>
+    </header>
+
+    <!-- Sección Principal (Hero) -->
+    <section class="hero">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <span class="badge">NUEVA PLATAFORMA DE SERVICIOS</span>
+                <h1>LA PLATAFORMA INTERMEDIARIA N° 1 DEL PERÚ</h1>
+                <p>Conecta con los mejores proveedores, adquiere o vende servicios sin complicaciones y con una operación lista para crecer. Todo desde un solo lugar.</p>
+                <div class="hero-actions">
+                    <a href="#" class="btn-primary btn-lg">Quiero adquirir servicios</a>
+                    <a href="#" class="btn-outline btn-lg">Quiero ser proveedor</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <h3>+10K</h3>
+                        <p>Usuarios activos</p>
+                    </div>
+                    <div class="stat">
+                        <h3>+500</h3>
+                        <p>Proveedores</p>
+                    </div>
+                    <div class="stat">
+                        <h3>100%</h3>
+                        <p>Pagos seguros</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Mockup Visual -->
+            <div class="hero-image">
+                <div class="mockup-box">
+                    <div class="mockup-header">
+                        <div class="dot red"></div>
+                        <div class="dot yellow"></div>
+                        <div class="dot green"></div>
+                    </div>
+                    <div class="mockup-body">
+                        <i class="fas fa-chart-line dashboard-icon"></i>
+                        <h4>Panel de Gestión</h4>
+                        <div class="bar-chart">
+                            <div class="bar" style="height: 60%"></div>
+                            <div class="bar" style="height: 80%"></div>
+                            <div class="bar" style="height: 40%"></div>
+                            <div class="bar" style="height: 100%"></div>
+                        </div>
+                        <button class="btn-primary btn-sm">Ver Seguimiento</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección: Cómo funciona -->
+    <section id="como-funciona" class="how-it-works">
+        <div class="container">
+            <div class="section-title text-center">
+                <h2>¿Cómo funciona?</h2>
+                <p>Una red preparada para conectar necesidades con soluciones reales.</p>
+            </div>
+            
+            <div class="tabs-container">
+                <div class="tabs">
+                    <button class="tab-btn active" data-target="tab-clientes">Para Clientes</button>
+                    <button class="tab-btn" data-target="tab-proveedores">Para Proveedores</button>
+                </div>
+                
+                <!-- Flujo para quien adquiere el servicio -->
+                <div class="tab-content active" id="tab-clientes">
+                    <div class="steps-grid">
+                        <div class="step-card">
+                            <div class="step-num">1</div>
+                            <i class="fas fa-user-plus"></i>
+                            <h3>Regístrate</h3>
+                            <p>Crea tu cuenta gratis y completa tu perfil en minutos.</p>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-num">2</div>
+                            <i class="fas fa-search"></i>
+                            <h3>Explora servicios</h3>
+                            <p>Encuentra a los mejores especialistas y proveedores verificados en nuestro catálogo.</p>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-num">3</div>
+                            <i class="fas fa-handshake"></i>
+                            <h3>Contrata</h3>
+                            <p>Adquiere el servicio y paga de forma 100% segura mediante la plataforma.</p>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-num">4</div>
+                            <i class="fas fa-star"></i>
+                            <h3>Califica</h3>
+                            <p>Recibe tu servicio y evalúa al proveedor para ayudar a la comunidad.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flujo para el proveedor -->
+                <div class="tab-content" id="tab-proveedores">
+                    <div class="steps-grid">
+                        <div class="step-card">
+                            <div class="step-num">1</div>
+                            <i class="fas fa-id-card"></i>
+                            <h3>Crea tu perfil</h3>
+                            <p>Completa tu onboarding guiado y demuestra tu talento.</p>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-num">2</div>
+                            <i class="fas fa-list-check"></i>
+                            <h3>Publica ofertas</h3>
+                            <p>Define tus servicios, precios y tiempos de entrega claramente.</p>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-num">3</div>
+                            <i class="fas fa-rocket"></i>
+                            <h3>Ejecuta</h3>
+                            <p>Recibe solicitudes, comunícate con el cliente y realiza el trabajo.</p>
+                        </div>
+                        <div class="step-card">
+                            <div class="step-num">4</div>
+                            <i class="fas fa-wallet"></i>
+                            <h3>Cobra seguro</h3>
+                            <p>Liquidaciones automáticas una vez terminado y aprobado el servicio.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección: Beneficios y Características -->
+    <section id="beneficios" class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Gestiona tus servicios desde una<br><span class="text-red">plataforma diseñada para ti</span></h2>
+                <p>Todo lo que necesitas para operar en una sola pantalla, sin intermediarios ocultos.</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div>
+                        <h4>Intermediación Segura</h4>
+                        <p>Tu dinero está protegido. El pago se libera al proveedor únicamente cuando el servicio está completado.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-check-circle"></i></div>
+                    <div>
+                        <h4>Proveedores Verificados</h4>
+                        <p>Filtramos y verificamos a los especialistas para garantizar un estándar alto de calidad.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-comments"></i></div>
+                    <div>
+                        <h4>Comunicación Centralizada</h4>
+                        <p>Seguimiento de cada acuerdo, chat integrado y gestión en tiempo real.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon"><i class="fas fa-chart-pie"></i></div>
+                    <div>
+                        <h4>Claridad Financiera</h4>
+                        <p>Control exacto de tu inversión o de tus ganancias mediante un dashboard interactivo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Llamado a la acción (CTA) -->
+    <section class="cta-section">
+        <div class="container text-center">
+            <h2>No solo somos una plataforma.</h2>
+            <h2 class="text-red">Te ayudamos a crecer y escalar.</h2>
+            <p>Empieza a contratar servicios de calidad o expande tu negocio hoy mismo.</p>
+            <a href="#" class="btn-primary btn-lg mt-4">Empezar completamente gratis</a>
+        </div>
+    </section>
+
+    <!-- Pie de página -->
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-col">
+                <a href="#" class="logo">INTER<span>CLICK</span></a>
+                <p class="mt-3">El ecosistema de servicios N° 1. Conectando necesidades con soluciones efectivas a nivel nacional.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Plataforma</h4>
+                <a href="#">Para Clientes</a>
+                <a href="#">Para Proveedores</a>
+                <a href="#">Categorías de Servicio</a>
+            </div>
+            <div class="footer-col">
+                <h4>Soporte</h4>
+                <a href="#">Centro de ayuda</a>
+                <a href="#">Términos y condiciones</a>
+                <a href="#">Políticas de privacidad</a>
+            </div>
+            <div class="footer-col">
+                <h4>Síguenos</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p>&copy; 2026 InterClick. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="landscript.js"></script>
+</body>
+</html>
