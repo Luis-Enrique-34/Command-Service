@@ -110,7 +110,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 80px;
+    height: 90px;
 }
 
 .logo {
@@ -552,4 +552,12 @@ footer {
     .footer-container { grid-template-columns: 1fr; text-align: center; }
     .social-links { justify-content: center; }
     .cta-section h2 { font-size: 2rem; }
+}
+
+/* Ajuste de tamaño para el nuevo logo de Command Service */
+.logo-img {
+    height:150px; /* Modifica este número si lo quieres más grande o más pequeño */
+    width: auto;
+    display: block;
+    /* mix-blend-mode: screen; */
 }
