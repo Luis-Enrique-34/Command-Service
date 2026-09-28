@@ -474,7 +474,7 @@ header {
 
 /* ================= FOOTER ================= */
 footer {
-    background-color: #050505;
+    background-color: rgba(9, 9, 11, 0.85);
     padding: 70px 0 20px;
     border-top: 1px solid var(--border-color);
 }
