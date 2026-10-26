@@ -3,7 +3,7 @@ const regBtn = document.getElementById("submitBtn");
 
 // Si ya hay sesión activa, ir directo al panel
 api("/api/auth/me").then(({ ok }) => {
-  if (ok) window.location.replace("panel.html");
+  if (ok) window.location.replace("app.html");
 });
 
 // Preseleccionar el rol si viene en la URL: registro.html?rol=proveedor
@@ -79,5 +79,5 @@ regForm.addEventListener("submit", async (e) => {
 
   showAlert("¡Cuenta creada con éxito! Redirigiendo a tu panel...", "success");
   regForm.reset();
-  setTimeout(() => window.location.replace("panel.html"), 900);
+  setTimeout(() => window.location.replace("app.html"), 900);
 });

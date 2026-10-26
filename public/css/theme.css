@@ -1,0 +1,143 @@
+/* =====================================================================
+   Command Service · Sistema de temas (colorimetría de marca)
+   - Oscuro: negro profundo + rojo de marca (identidad original).
+   - Claro:  blanco como tono principal, texto carbón y el mismo rojo.
+   El tema se fija en <html data-theme="dark|light"> desde js/theme.js
+   antes de pintar la página (sin "parpadeo").
+   Los nombres antiguos (--bg-dark, --primary-red, ...) se mantienen para
+   que landstyle.css y auth.css sigan funcionando sin cambios mayores.
+   ===================================================================== */
+
+:root,
+[data-theme="dark"] {
+    color-scheme: dark;
+
+    /* Superficies */
+    --bg-dark: #09090b;          /* fondo de página */
+    --bg-section: #121214;       /* secciones alternas / sidebar */
+    --bg-card: #1c1c1f;          /* tarjetas, inputs */
+    --bg-elev: #232327;          /* hover, filas destacadas */
+    --bg-overlay: rgba(0, 0, 0, 0.65);
+
+    /* Marca */
+    --primary-red: #E50914;
+    --primary-red-hover: #F6121D;
+    --red-text: #ff3b44;         /* rojo para texto pequeño sobre fondo oscuro (contraste AA) */
+    --red-soft: rgba(229, 9, 20, 0.12);
+    --red-border: rgba(229, 9, 20, 0.3);
+    --on-red: #ffffff;
+
+    /* Texto y bordes */
+    --text-main: #f4f4f5;
+    --text-muted: #a1a1aa;
+    --text-subtle: #71717a;
+    --border-color: #27272a;
+    --border-strong: #3f3f46;
+    --placeholder: #52525b;
+
+    /* Estados */
+    --ok: #4ade80;   --ok-soft: rgba(74, 222, 128, 0.12);
+    --warn: #facc15; --warn-soft: rgba(250, 204, 21, 0.12);
+    --info: #60a5fa; --info-soft: rgba(96, 165, 250, 0.12);
+    --danger: #f87171; --danger-soft: rgba(248, 113, 113, 0.12);
+    --violet: #c084fc; --violet-soft: rgba(192, 132, 252, 0.12);
+
+    /* Efectos de marca */
+    --header-bg: rgba(9, 9, 11, 0.85);
+    --header-bg-scrolled: rgba(9, 9, 11, 0.98);
+    --hero-glow: #2a080a;
+    --brand-panel: radial-gradient(circle at 20% 20%, rgba(229, 9, 20, 0.35) 0%, transparent 55%),
+                   radial-gradient(circle at 80% 90%, rgba(229, 9, 20, 0.2) 0%, transparent 50%),
+                   linear-gradient(135deg, #1f0406 0%, #09090b 100%);
+    --cta-grad: linear-gradient(135deg, #1f0406 0%, #09090b 100%);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 25px 50px rgba(0, 0, 0, 0.8);
+
+    /* Tipografía */
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Open Sans', sans-serif;
+}
+
+[data-theme="light"] {
+    color-scheme: light;
+
+    --bg-dark: #ffffff;
+    --bg-section: #f7f7f8;
+    --bg-card: #ffffff;
+    --bg-elev: #f4f4f5;
+    --bg-overlay: rgba(24, 24, 27, 0.45);
+
+    --primary-red: #E50914;
+    --primary-red-hover: #c90711;
+    --red-text: #c4070f;         /* rojo más profundo para texto sobre blanco (contraste AA) */
+    --red-soft: rgba(229, 9, 20, 0.08);
+    --red-border: rgba(229, 9, 20, 0.28);
+    --on-red: #ffffff;
+
+    --text-main: #18181b;
+    --text-muted: #52525b;
+    --text-subtle: #71717a;
+    --border-color: #e4e4e7;
+    --border-strong: #d4d4d8;
+    --placeholder: #a1a1aa;
+
+    --ok: #15803d;   --ok-soft: rgba(22, 163, 74, 0.1);
+    --warn: #a16207; --warn-soft: rgba(202, 138, 4, 0.12);
+    --info: #1d4ed8; --info-soft: rgba(37, 99, 235, 0.1);
+    --danger: #b91c1c; --danger-soft: rgba(220, 38, 38, 0.08);
+    --violet: #7e22ce; --violet-soft: rgba(147, 51, 234, 0.1);
+
+    --header-bg: rgba(255, 255, 255, 0.88);
+    --header-bg-scrolled: rgba(255, 255, 255, 0.98);
+    --hero-glow: #ffe4e6;
+    --brand-panel: radial-gradient(circle at 20% 20%, rgba(229, 9, 20, 0.14) 0%, transparent 55%),
+                   radial-gradient(circle at 80% 90%, rgba(229, 9, 20, 0.08) 0%, transparent 50%),
+                   linear-gradient(135deg, #fff1f2 0%, #ffffff 100%);
+    --cta-grad: linear-gradient(135deg, #fff1f2 0%, #ffffff 100%);
+    --shadow-sm: 0 1px 3px rgba(24, 24, 27, 0.08), 0 1px 2px rgba(24, 24, 27, 0.04);
+    --shadow-lg: 0 25px 50px rgba(24, 24, 27, 0.15);
+}
+
+/* Transición suave al cambiar de tema (solo colores) */
+html.tema-anim *,
+html.tema-anim *::before,
+html.tema-anim *::after {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.2s ease !important;
+}
+
+/* ---------- Logos por tema ---------- */
+[data-theme="dark"] .only-light,
+[data-theme="light"] .only-dark { display: none !important; }
+
+/* ---------- Botón de cambio de tema ---------- */
+.theme-toggle {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: color 0.2s, border-color 0.2s, transform 0.2s;
+}
+.theme-toggle:hover { color: var(--primary-red); border-color: var(--red-border); }
+.theme-toggle:active { transform: scale(0.94); }
+.theme-toggle:focus-visible { outline: 2px solid var(--primary-red); outline-offset: 2px; }
+[data-theme="dark"] .theme-toggle .fa-moon,
+[data-theme="light"] .theme-toggle .fa-sun { display: none; }
+
+/* Botón flotante (páginas sin barra superior: login / registro) */
+.theme-toggle.floating {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    z-index: 50;
+    box-shadow: var(--shadow-sm);
+}
+
+::selection { background: var(--primary-red); color: #fff; }

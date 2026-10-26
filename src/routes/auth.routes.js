@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const validate = require("../middleware/validate");
+const { validate } = require("../middleware/validate");
 const { requireAuth } = require("../middleware/requireAuth");
 const { loginLimiter, registroLimiter } = require("../middleware/rateLimiters");
 const { registroSchema, loginSchema } = require("../validators/auth.schemas");

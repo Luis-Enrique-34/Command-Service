@@ -3,7 +3,7 @@ const loginBtn = document.getElementById("submitBtn");
 
 // Si ya hay sesión activa, no tiene sentido mostrar el login
 api("/api/auth/me").then(({ ok }) => {
-  if (ok) window.location.replace("panel.html");
+  if (ok) window.location.replace("app.html");
 });
 
 loginForm.addEventListener("submit", async (e) => {
@@ -31,5 +31,5 @@ loginForm.addEventListener("submit", async (e) => {
   }
 
   showAlert(`${data.mensaje}, ${data.usuario.nombres.split(" ")[0]}. Redirigiendo...`, "success");
-  setTimeout(() => window.location.replace("panel.html"), 700);
+  setTimeout(() => window.location.replace("app.html"), 700);
 });

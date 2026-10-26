@@ -3,16 +3,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const header = document.getElementById("header");
 
   window.addEventListener("scroll", () => {
-    if (window.scrollY > 50) {
-      header.style.boxShadow = "0 4px 25px rgba(0, 0, 0, 0.7)";
-      header.style.backgroundColor = "rgba(9, 9, 11, 0.98)";
-      header.style.padding = "5px 0"; // Compactar un poco
-    } else {
-      header.style.boxShadow = "none";
-      header.style.backgroundColor = "rgba(9, 9, 11, 0.85)";
-      header.style.padding = "0";
-    }
+    // Los colores vienen del tema activo (css/theme.css); aquí solo se activa la clase
+    header.classList.toggle("scrolled", window.scrollY > 50);
   });
+
+  // 1b. Menú móvil: el botón ☰ muestra/oculta los enlaces de navegación
+  const menuBtn = document.querySelector(".mobile-menu-btn");
+  menuBtn?.setAttribute("aria-label", "Abrir menú");
+  menuBtn?.addEventListener("click", () => {
+    const abierto = header.classList.toggle("nav-open");
+    menuBtn.setAttribute("aria-expanded", String(abierto));
+  });
+  document.querySelectorAll(".nav-links a").forEach((a) => a.addEventListener("click", () => header.classList.remove("nav-open")));
 
   // 2. Funcionalidad del Sistema de Pestañas (Tabs de Cliente/Proveedor)
   const tabBtns = document.querySelectorAll(".tab-btn");
@@ -55,12 +57,12 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((data) => {
       if (!data?.usuario) return;
       const auth = document.querySelector(".auth-buttons");
-      auth.innerHTML = "";
+      auth.querySelectorAll("a").forEach((a) => a.remove()); // conserva el botón de tema
       const saludo = document.createElement("span");
       saludo.className = "btn-login";
       saludo.textContent = `Hola, ${data.usuario.nombres.split(" ")[0]}`;
       const panel = document.createElement("a");
-      panel.href = "panel.html";
+      panel.href = "app.html";
       panel.className = "btn-primary";
       panel.textContent = "Ir a mi panel";
       auth.append(saludo, panel);
