@@ -1,4 +1,8 @@
-// Esquemas Zod de los módulos de negocio (servicios, solicitudes, perfil, admin).
+// =====================================================================
+//  VALIDADORES de los módulos de negocio — librería: zod
+//  Servicios, solicitudes, perfil y administración. Lista blanca de campos
+//  y formatos: lo que no está declarado aquí no llega al controlador.
+// =====================================================================
 const { z } = require("zod");
 
 const textoOpcional = (max) =>
@@ -31,23 +35,31 @@ const catalogoQuery = z.object({
 // ----------------------------------------------------------- Solicitudes
 const crearSolicitudSchema = z.object({
   servicio_id: z.uuid("Servicio no válido"),
-  descripcion: z.string({ error: "Describe lo que necesitas" }).trim().min(10, "Cuéntanos un poco más (mínimo 10 caracteres)").max(1000),
+  descripcion: z.string({ error: "Describe lo que necesitas" }).trim()
+    .min(10, "Cuéntanos un poco más (mínimo 10 caracteres)").max(1000),
   direccion: textoOpcional(200),
-  fecha_preferida: z.union([z.literal(""), z.iso.date("Fecha no válida")]).optional().transform((v) => v || null),
+  fecha_preferida: z.union([z.literal(""), z.iso.date("Fecha no válida")])
+    .optional().transform((v) => v || null),
 });
 
 const accionSchema = z
   .object({
-    accion: z.enum(["aceptar", "rechazar", "pagar", "agendar", "iniciar", "completar", "cancelar"], { error: "Acción no válida" }),
+    accion: z.enum(["aceptar", "rechazar", "pagar", "agendar", "iniciar", "completar", "cancelar"],
+      { error: "Acción no válida" }),
     motivo: z.string().trim().max(255).optional(),
-    metodo: z.enum(["tarjeta", "yape", "plin", "transferencia"], { error: "Elige un método de pago" }).optional(),
-    fecha_programada: z.iso.datetime({ offset: true, local: true, error: "Fecha y hora no válidas" }).optional(),
+    metodo: z.enum(["tarjeta", "yape", "plin", "transferencia"], { error: "Elige un método de pago" })
+      .optional(),
+    fecha_programada: z.iso.datetime({ offset: true, local: true, error: "Fecha y hora no válidas" })
+      .optional(),
   })
   .superRefine((d, ctx) => {
     if (["rechazar", "cancelar"].includes(d.accion) && (!d.motivo || d.motivo.length < 5)) {
-      ctx.addIssue({ code: "custom", path: ["motivo"], message: "Indica el motivo (mínimo 5 caracteres)" });
+      ctx.addIssue({ code: "custom", path: ["motivo"],
+        message: "Indica el motivo (mínimo 5 caracteres)" });
     }
-    if (d.accion === "pagar" && !d.metodo) ctx.addIssue({ code: "custom", path: ["metodo"], message: "Elige un método de pago" });
+    if (d.accion === "pagar" && !d.metodo) {
+      ctx.addIssue({ code: "custom", path: ["metodo"], message: "Elige un método de pago" });
+    }
     if (d.accion === "agendar" && !d.fecha_programada) {
       ctx.addIssue({ code: "custom", path: ["fecha_programada"], message: "Indica la fecha y hora" });
     }

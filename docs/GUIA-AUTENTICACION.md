@@ -17,25 +17,20 @@ Este módulo agrega **registro, inicio de sesión, cierre de sesión y páginas 
 
 ```
 Command-Service/
-├── public/                  ← TODO lo que ve el navegador
-│   ├── landing.html         (tu landing, con botones ya enlazados)
-│   ├── landstyle.css
-│   ├── landscript.js        (+ detecta si hay sesión y cambia el header)
-│   ├── login.html / login.js
-│   ├── registro.html / registro.js
-│   ├── panel.html / panel.js  (página protegida de ejemplo)
-│   ├── auth.css / auth.js     (estilos y funciones compartidas)
-│   ├── LOGO CUADRADO.png
-│   └── LOGO RECTANGULAR.svg
+├── public/                  ← VISTA: todo lo que ve el navegador
+│   ├── landing.html · login.html · registro.html · app.html
+│   └── assets/  css/ · js/pages/ (login.js, registro.js, auth-form.js) · js/app/ · img/ · vendor/
 ├── src/                     ← Backend (NUNCA es accesible desde el navegador)
 │   ├── server.js            punto de entrada
-│   ├── app.js               configuración de Express + seguridad
-│   ├── config/  env.js, db.js
-│   ├── routes/  auth.routes.js
-│   ├── controllers/ auth.controller.js   (lógica de registro/login)
-│   ├── middleware/  validate.js, requireAuth.js, rateLimiters.js
-│   ├── validators/  auth.schemas.js       (reglas de validación)
-│   └── utils/       cookies.js
+│   ├── app.js               cadena de middlewares + manejador de errores
+│   ├── config/      env.js, database.js, security.js (parámetros de Argon2, JWT, cookie, CSP)
+│   ├── routes/      auth.routes.js, api.routes.js
+│   ├── middlewares/ auth.middleware.js, validate.middleware.js, rateLimit.middleware.js
+│   ├── validators/  auth.schemas.js       (reglas de validación con Zod)
+│   ├── controllers/ auth.controller.js    (HTTP: cookie de sesión)
+│   ├── services/    AuthService.js        (registro, login, bloqueo, JWT)
+│   ├── models/      Usuario.js            (oculta el hash al responder)
+│   └── dao/         UsuarioDAO.js         (SQL de usuarios)
 ├── database/
 │   ├── schema.sql           ← crea las tablas (+ protección RLS de Supabase)
 │   ├── init.js              ← `npm run db:init` (crea las tablas)
@@ -77,7 +72,7 @@ Navegador (registro.js)                Servidor (Node/Express)                 S
                                        6. INSERT ... VALUES ($1,$2...)  ───────► guarda hash, NO la clave
                                        7. Firma un JWT {sub: id, rol}
    ◄──────── Set-Cookie: cs_session=JWT; HttpOnly; SameSite=Strict
-8. Redirige a panel.html
+8. Redirige a app.html
 ```
 
 ### Login
@@ -89,7 +84,7 @@ Navegador (registro.js)                Servidor (Node/Express)                 S
 6. El mensaje de error es **siempre el mismo**: "Correo o contraseña incorrectos" (nunca "ese correo no existe").
 
 ### Páginas protegidas
-`panel.js` llama a `GET /api/auth/me`. El middleware `requireAuth` lee la cookie, verifica la firma del JWT y su expiración. Si todo está bien devuelve los datos del usuario; si no, `401` y el frontend redirige al login.
+`app.html` llama a `GET /api/auth/me`. El middleware `requireAuth` lee la cookie, verifica la firma del JWT y su expiración. Si todo está bien devuelve los datos del usuario; si no, `401` y el frontend redirige al login.
 
 Para proteger futuras rutas del backend:
 ```js
@@ -145,14 +140,14 @@ db.query("SELECT * FROM usuarios WHERE email = $1", [email]);
 ```
 
 ### 4.5 Validación en el servidor (Zod)
-La validación de `registro.js` se puede saltar fácilmente (con Postman o las DevTools). Por eso el servidor vuelve a validar todo en `auth.schemas.js`. Ejemplo: aunque alguien envíe `"rol": "admin"`, el servidor lo rechaza.
+La validación de `registro.js` se puede saltar fácilmente (con Postman o las DevTools). Por eso el servidor vuelve a validar todo en `src/validators/auth.schemas.js`. Ejemplo: aunque alguien envíe `"rol": "admin"`, el servidor lo rechaza.
 
 ### 4.6 Otras capas
 | Medida | Dónde | Protege contra |
 |---|---|---|
-| Rate limiting (10 logins / 15 min por IP) | `rateLimiters.js` | Fuerza bruta |
-| Bloqueo de cuenta tras 5 fallos | `auth.controller.js` | Fuerza bruta a una cuenta concreta |
-| Helmet (cabeceras CSP, X-Frame-Options...) | `app.js` | XSS, clickjacking |
+| Rate limiting (10 logins / 15 min por IP) | `middlewares/rateLimit.middleware.js` | Fuerza bruta |
+| Bloqueo de cuenta tras 5 fallos | `services/AuthService.js` | Fuerza bruta a una cuenta concreta |
+| Helmet (cabeceras CSP, X-Frame-Options...) | `config/security.js` + `app.js` | XSS, clickjacking |
 | Límite de 10 KB por petición | `app.js` | Denegación de servicio |
 | Errores genéricos al cliente | `app.js` | Filtración de información interna |
 | `.env` fuera de Git y de `public/` | `.gitignore` | Robo de credenciales |

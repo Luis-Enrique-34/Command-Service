@@ -1,7 +1,11 @@
+// =====================================================================
+//  RUTAS de autenticación (/api/auth/...).
+//  Cada línea declara: método · ruta · middlewares en orden · controlador.
+// =====================================================================
 const { Router } = require("express");
-const { validate } = require("../middleware/validate");
-const { requireAuth } = require("../middleware/requireAuth");
-const { loginLimiter, registroLimiter } = require("../middleware/rateLimiters");
+const { validate } = require("../middlewares/validate.middleware");
+const { requireAuth } = require("../middlewares/auth.middleware");
+const { loginLimiter, registroLimiter } = require("../middlewares/rateLimit.middleware");
 const { registroSchema, loginSchema } = require("../validators/auth.schemas");
 const auth = require("../controllers/auth.controller");
 

@@ -1,5 +1,5 @@
 // =====================================================================
-//  Logger centralizado (niveles debug/info/warn/error).
+//  LOGGER centralizado (equivalente a Logback en Java): niveles debug/info/warn/error.
 //  - En desarrollo imprime líneas legibles con color.
 //  - En producción imprime JSON (una línea por evento), fácil de procesar
 //    por herramientas de monitoreo (Render, Railway, Grafana Loki, etc.).
@@ -26,7 +26,8 @@ function registrar(nivel, mensaje, datos) {
   } else {
     const hora = evento.fecha.slice(11, 19);
     const extra = datos ? " " + JSON.stringify(datos) : "";
-    console.log(`${COLOR[nivel]}${hora} ${nivel.toUpperCase().padEnd(5)}\x1b[0m ${mensaje}${extra}`);
+    const etiqueta = `${COLOR[nivel]}${hora} ${nivel.toUpperCase().padEnd(5)}\x1b[0m`;
+    console.log(`${etiqueta} ${mensaje}${extra}`);
   }
 }
 

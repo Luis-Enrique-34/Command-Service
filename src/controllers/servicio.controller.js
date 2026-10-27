@@ -1,43 +1,37 @@
-// Controlador de catálogo, categorías y "Mis servicios" (proveedor).
-const servicioDao = require("../dao/servicio.dao");
-const auditoria = require("../dao/auditoria.dao");
-const { noEncontrado, ipDe } = require("../utils/http");
+// =====================================================================
+//  CONTROLADOR del catálogo, categorías y "Mis servicios" (proveedor).
+// =====================================================================
+const { servicioService } = require("../services");
+const { ipDe } = require("../utils/HttpError");
 
 async function categorias(req, res) {
-  res.json({ ok: true, categorias: await servicioDao.listarCategorias() });
+  res.json({ ok: true, categorias: await servicioService.categorias() });
 }
 
 async function catalogo(req, res) {
-  res.json({ ok: true, servicios: await servicioDao.catalogo(req.datos) });
+  res.json({ ok: true, servicios: await servicioService.catalogo(req.datos) });
 }
 
 async function detalle(req, res) {
-  const s = await servicioDao.buscarPorId(req.params.id);
-  // Un cliente no puede ver servicios inactivos o de proveedores no verificados
-  const visible = s && ((s.activo && s.verificacion === "aprobado") || s.proveedor_id === req.usuario.id || req.usuario.rol === "admin");
-  if (!visible) throw noEncontrado("el servicio");
-  res.json({ ok: true, servicio: s });
+  res.json({ ok: true, servicio: await servicioService.detalle(req.params.id, req.usuario) });
 }
 
 async function misServicios(req, res) {
-  res.json({ ok: true, servicios: await servicioDao.listarDeProveedor(req.usuario.id) });
+  res.json({ ok: true, servicios: await servicioService.deProveedor(req.usuario) });
 }
 
 async function crear(req, res) {
-  const id = await servicioDao.crear(req.usuario.id, req.body);
-  await auditoria.registrar({ usuarioId: req.usuario.id, accion: "CREAR_SERVICIO", entidad: "servicios", entidadId: id, ip: ipDe(req), detalle: { titulo: req.body.titulo } });
-  res.status(201).json({ ok: true, mensaje: "Servicio publicado", servicio: await servicioDao.buscarPorId(id) });
+  const servicio = await servicioService.crear(req.usuario, req.body, ipDe(req));
+  res.status(201).json({ ok: true, mensaje: "Servicio publicado", servicio });
 }
 
 async function actualizar(req, res) {
-  const ok = await servicioDao.actualizar(req.params.id, req.usuario.id, req.body);
-  if (!ok) throw noEncontrado("el servicio");
-  res.json({ ok: true, mensaje: "Servicio actualizado", servicio: await servicioDao.buscarPorId(req.params.id) });
+  const servicio = await servicioService.actualizar(req.usuario, req.params.id, req.body);
+  res.json({ ok: true, mensaje: "Servicio actualizado", servicio });
 }
 
 async function cambiarEstado(req, res) {
-  const ok = await servicioDao.cambiarEstado(req.params.id, req.usuario.id, req.body.activo);
-  if (!ok) throw noEncontrado("el servicio");
+  await servicioService.cambiarEstado(req.usuario, req.params.id, req.body.activo);
   res.json({ ok: true, mensaje: req.body.activo ? "Servicio activado" : "Servicio desactivado" });
 }
 

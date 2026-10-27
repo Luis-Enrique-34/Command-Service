@@ -1,16 +1,18 @@
 {
   "name": "command-service",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Plataforma de servicios Command Service (Node.js + Express + Supabase/PostgreSQL)",
   "main": "src/server.js",
   "scripts": {
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
+    "test": "node --test --test-reporter=spec tests/unit/Solicitud.model.test.js tests/unit/SolicitudService.test.js tests/integration/api.test.js",
+    "test:unit": "node --test --test-reporter=spec tests/unit/Solicitud.model.test.js tests/unit/SolicitudService.test.js",
+    "test:integration": "node --test --test-reporter=spec tests/integration/api.test.js",
     "db:test": "node database/test-connection.js",
     "db:init": "node database/init.js",
     "db:seed": "node database/seed.js",
-    "db:reset": "node database/seed.js --reset",
-    "test": "node --test --test-reporter=spec tests/solicitud.service.test.js tests/api.test.js"
+    "db:reset": "node database/seed.js --reset"
   },
   "dependencies": {
     "argon2": "^0.45.1",

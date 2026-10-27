@@ -1,7 +1,9 @@
-// Punto de entrada: verifica la base de datos y levanta el servidor.
+// =====================================================================
+//  PUNTO DE ENTRADA: verifica la base de datos y levanta el servidor.
+// =====================================================================
 const { PORT } = require("./config/env");
 const app = require("./app");
-const db = require("./config/db");
+const db = require("./config/database");
 const logger = require("./utils/logger");
 const { explicarErrorDb } = require("./utils/dbErrors");
 

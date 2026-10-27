@@ -1,6 +1,8 @@
-// Validación de datos con Zod.
-// Regla de oro: NUNCA confiar en lo que llega del navegador. La validación del
-// frontend es solo para comodidad del usuario; la real ocurre aquí, en el servidor.
+// =====================================================================
+//  VALIDADORES de autenticación — librería: zod
+//  Regla de oro: NUNCA confiar en lo que llega del navegador. La validación
+//  del frontend es solo comodidad; la real ocurre aquí, en el servidor.
+// =====================================================================
 const { z } = require("zod");
 
 const email = z

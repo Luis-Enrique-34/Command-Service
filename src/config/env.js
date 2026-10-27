@@ -1,6 +1,9 @@
-// Carga las variables del archivo .env y valida que existan las críticas.
-// Si falta algo importante, la app NO arranca (mejor fallar temprano que
-// correr en producción con una clave vacía).
+// =====================================================================
+//  CONFIGURACIÓN DEL ENTORNO — librería: dotenv
+//  Carga las variables del archivo .env (que nunca se sube a Git) y valida
+//  las críticas. Si falta algo importante, la app NO arranca: es mejor
+//  fallar temprano que correr en producción con una clave vacía.
+// =====================================================================
 require("dotenv").config({ quiet: true });
 
 function fallar(...lineas) {

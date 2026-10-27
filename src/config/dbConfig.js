@@ -1,7 +1,7 @@
 // =====================================================================
 //  Construye la configuración de conexión a PostgreSQL a partir de
 //  DATABASE_URL. Funciona tanto con Supabase (nube) como con un
-//  PostgreSQL local. Lo usan src/config/db.js y database/init.js.
+//  PostgreSQL local. Lo usan src/config/database.js y database/init.js.
 // =====================================================================
 const fs = require("fs");
 const path = require("path");
